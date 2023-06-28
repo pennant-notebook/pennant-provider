@@ -1,3 +1,7 @@
+# a custom implementation of y-websocket for dealing with nested documents using ydocs
+the provider and websocket server will be deeply entagled so we won't parse them out into their own repositories
+
+see y-websocket boilerplate below
 
 # y-websocket :tophat:
 > WebSocket Provider for Yjs
