@@ -1,11 +1,11 @@
-import * as Y from "yjs";
+var Y = require("yjs");
 
 const OBSERVE_CELL_ORDER_ARR = false;
 const OBSERVE_NOTEBOOK_YMAP = false;
 const OBSERVE_CELL_DATA_YMAP = false;
 const OBSERVE_CELL_CONTENT_YTEXT = false;
 
-export const yPrettyPrint = (ydoc, msg = "") => {
+exports.yPrettyPrint = function (ydoc, msg = "") {
   console.log(
     "\n\n==> " + msg + ": \n" + JSON.stringify(ydoc.toJSON(), null, 4) + "\n\n"
   );
@@ -16,17 +16,17 @@ const mockJsonData = JSON.stringify({
     rawCellData: {
       cellIdA: {
         id: "cellIdA",
-        content: "console.log('hello i am cell A');",
+        content: "Fantastic work on the json converter",
         type: "code"
       },
       cellIdB: {
         id: "cellIdB",
-        content: "console.log('hello i am cell B');",
+        content: "this data was loaded into the websocket provider",
         type: "code"
       },
       cellIdC: {
         id: "cellIdC",
-        content: "console.log('meow (cell 3)');",
+        content: "the current build is loading mock data and collaborative",
         type: "code"
       }
     },
@@ -40,7 +40,7 @@ const mockCellsDummyData = [
   { id: "cellId3", content: "console.log('cell 3');", type: "code" }
 ];
 
-export const mockCellsToYDoc = cells => {
+exports.mockCellsToYDoc = function (cells) {
   if (!cells) cells = mockCellsDummyData;
 
   const mockDoc = new Y.Doc();
@@ -81,12 +81,12 @@ export const mockCellsToYDoc = cells => {
   const cellIdArr = cells.map(cell => cell.id);
   cellOrderArrYArray.insert(0, cellIdArr);
 
-  yPrettyPrint(mockDoc, "last print of mockCellsToYDoc function");
+  exports.yPrettyPrint(mockDoc, "last print of mockCellsToYDoc function");
 
   return mockDoc;
 };
 
-export const mockJsonToYDoc = (json, yDoc) => {
+exports.mockJsonToYDoc = function (json, yDoc) {
   if (!json) json = mockJsonData;
   json = JSON.parse(json);
 
@@ -109,7 +109,7 @@ export const mockJsonToYDoc = (json, yDoc) => {
     const contentYText = new Y.Text(entry[1].content);
 
     if (OBSERVE_CELL_CONTENT_YTEXT) {
-      observability.cellContentText(contentYText, cell.id);
+      observability.cellContentText(contentYText, entry[1].id);
     }
 
     cellBodyYMap.set("id", entry[1].id);
@@ -128,13 +128,13 @@ export const mockJsonToYDoc = (json, yDoc) => {
 
   cellOrderArrYArray.insert(0, json.notebook.cellOrderArr);
 
-  yPrettyPrint(mockDoc, "last print of mockJsonToYDoc function");
+  exports.yPrettyPrint(mockDoc, "last print of mockJsonToYDoc function");
 
   return mockDoc;
 };
 
 const observability = {
-  cellContentText(contentYText, id) {
+  cellContentText: function (contentYText, id) {
     contentYText.observe(event => {
       console.log(
         `Change Detected on cell ${id}  - delta: `,
@@ -143,7 +143,7 @@ const observability = {
     });
   },
 
-  cellDataYMap(cellDataYMap) {
+  cellDataYMap: function (cellDataYMap) {
     cellDataYMap.observe(event => {
       console.log(
         "\n\nEvent detected on cellDataYMap - delta: ",
@@ -152,7 +152,7 @@ const observability = {
     });
   },
 
-  cellOrderArr(cellOrderArrYArray) {
+  cellOrderArr: function (cellOrderArrYArray) {
     cellOrderArrYArray.observe(yarrayEvent => {
       console.log(
         "\n\nEvent detected on cellOrderArr - delta: ",
@@ -161,8 +161,8 @@ const observability = {
     });
   },
 
-  notebook(notebookYMap) {
-    yNotebookYMap.observeDeep(event => {
+  notebook: function (notebookYMap) {
+    notebookYMap.observeDeep(event => {
       console.log("\n\nEvent fired on notebook ymap: ");
       console.log("==> event path: ", event.path);
       console.log("==> event target: ", event.target);

@@ -1,3 +1,5 @@
+const mockData = require("../src/addMockDataToWSS");
+
 const Y = require("yjs");
 const syncProtocol = require("y-protocols/dist/sync.cjs");
 const awarenessProtocol = require("y-protocols/dist/awareness.cjs");
@@ -93,7 +95,16 @@ class WSSharedDoc extends Y.Doc {
   constructor(name) {
     super({ gc: gcEnabled });
 
-    addMock;
+    mockData.addMockData(this, { gc: gcEnabled });
+    console.log("State of WSS after add mock data loaded: ", this.toJSON());
+
+    setInterval(() => {
+      console.log("State of WSS after adding mock data: ");
+
+      mockData.yPrettyPrint(this.get("notebook").get("rawCellData"));
+    }, 3000);
+
+    // room name embeded in WSS doc? is this accessible from the user side?
     this.name = name;
     /**
      * Maps from conn to set of controlled user ids. Delete all user ids from awareness when this conn is closed
