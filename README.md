@@ -1,7 +1,6 @@
-# a custom implementation of y-websocket for dealing with nested documents using ydocs
-the provider and websocket server will be deeply entagled so we won't parse them out into their own repositories
+# A customized version of yWebsocket which allows the addition of mock data for testing
+If the data structure changes then update src/mockDataToYDoc.js
 
-see y-websocket boilerplate below
 
 # y-websocket :tophat:
 > WebSocket Provider for Yjs

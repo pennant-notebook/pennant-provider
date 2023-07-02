@@ -92,6 +92,8 @@ class WSSharedDoc extends Y.Doc {
    */
   constructor(name) {
     super({ gc: gcEnabled });
+
+    addMock;
     this.name = name;
     /**
      * Maps from conn to set of controlled user ids. Delete all user ids from awareness when this conn is closed
@@ -156,12 +158,6 @@ class WSSharedDoc extends Y.Doc {
  */
 const getYDoc = (docname, gc = true) =>
   map.setIfUndefined(docs, docname, () => {
-    console.log(
-      "\n\nreceived request for docname == " +
-        docname +
-        " " +
-        new Date().toLocaleTimeString()
-    );
     const doc = new WSSharedDoc(docname);
     doc.gc = gc;
     if (persistence !== null) {
@@ -183,9 +179,6 @@ const messageListener = (conn, doc, message) => {
     const encoder = encoding.createEncoder();
     const decoder = decoding.createDecoder(message);
     const messageType = decoding.readVarUint(decoder);
-    console.log("\n\nmessage recieved for WSSharedDoc - ", doc);
-    console.log("\n\nmessage type");
-    console.log("doc state before message , ", doc.toJSON);
     switch (messageType) {
       case messageSync:
         encoding.writeVarUint(encoder, messageSync);
@@ -277,6 +270,7 @@ exports.setupWSConnection = (
   req,
   { docName = req.url.slice(1).split("?")[0], gc = true } = {}
 ) => {
+  console.log("setupWSConnection call from ./bin/utils.js");
   conn.binaryType = "arraybuffer";
   // get doc, initialize if it does not exist yet
   const doc = getYDoc(docName, gc);

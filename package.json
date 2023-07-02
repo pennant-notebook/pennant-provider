@@ -11,7 +11,7 @@
     "url": "https://github.com/sponsors/dmonad"
   },
   "scripts": {
-    "start": "nodemon ./bin/server.js",
+    "start": "node ./bin/server.js",
     "dist": "rm -rf dist && rollup -c && tsc",
     "lint": "standard && tsc",
     "test": "npm run lint",
@@ -58,7 +58,6 @@
   "dependencies": {
     "lib0": "^0.2.52",
     "lodash.debounce": "^4.0.8",
-    "nodemon": "^2.0.22",
     "y-protocols": "^1.0.5"
   },
   "devDependencies": {
@@ -74,5 +73,6 @@
   "optionalDependencies": {
     "ws": "^6.2.1",
     "y-leveldb": "^0.1.0"
-  }
+  },
+  "type": "module"
 }
