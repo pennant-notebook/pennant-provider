@@ -80,12 +80,18 @@ const messageAwareness = 1;
  * @param {any} origin
  * @param {WSSharedDoc} doc
  */
+// broadcast changes to all clients
 const updateHandler = (update, origin, doc) => {
   const encoder = encoding.createEncoder();
   encoding.writeVarUint(encoder, messageSync);
   syncProtocol.writeUpdate(encoder, update);
   const message = encoding.toUint8Array(encoder);
-  doc.conns.forEach((_, conn) => send(doc, conn, message));
+  let connsCount = 0;
+  doc.conns.forEach((_, conn) => {
+    ++connsCount;
+    send(doc, conn, message);
+  });
+  console.log("update broadcast to " + connsCount + " clients");
 };
 
 class WSSharedDoc extends Y.Doc {
@@ -148,6 +154,8 @@ class WSSharedDoc extends Y.Doc {
       });
     };
     this.awareness.on("update", awarenessChangeHandler);
+
+    // when this WSS/server provider yDoc emits and update, send to all connections
     this.on("update", updateHandler);
     if (isCallbackSet) {
       this.on(
@@ -282,6 +290,7 @@ exports.setupWSConnection = (
   { docName = req.url.slice(1).split("?")[0], gc = true } = {}
 ) => {
   console.log("setupWSConnection call from ./bin/utils.js");
+  console.log("conn within setupWSConnection: ", { conn });
   conn.binaryType = "arraybuffer";
   // get doc, initialize if it does not exist yet
   const doc = getYDoc(docName, gc);
@@ -290,6 +299,7 @@ exports.setupWSConnection = (
   conn.on(
     "message",
     /** @param {ArrayBuffer} message */ message =>
+      console.log("message received at connection") ||
       messageListener(conn, doc, new Uint8Array(message))
   );
 
@@ -312,12 +322,15 @@ exports.setupWSConnection = (
     }
   }, pingTimeout);
   conn.on("close", () => {
+    console.log("connection closed");
     closeConn(doc, conn);
     clearInterval(pingInterval);
   });
   conn.on("pong", () => {
     pongReceived = true;
   });
+  // richard note 7/2 - I did not write the following comment! Its in the ywebsocket repo
+
   // put the following in a variables in a block so the interval handlers don't keep in in
   // scope
   {
