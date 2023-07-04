@@ -44,7 +44,7 @@ exports.mockCellsToYDoc = function (cells) {
   if (!cells) cells = mockCellsDummyData;
 
   const mockDoc = new Y.Doc();
-  const yNotebookYMap = mockDoc.getMap("notebook");
+  const yNotebookYMap = mockDoc.getMap("notebookHello");
   if (OBSERVE_NOTEBOOK_YMAP) {
     observability.notebook(yNotebookYMap);
   }

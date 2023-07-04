@@ -101,14 +101,14 @@ class WSSharedDoc extends Y.Doc {
   constructor(name) {
     super({ gc: gcEnabled });
 
-    mockData.addMockData(this, { gc: gcEnabled });
-    console.log("State of WSS after add mock data loaded: ", this.toJSON());
+    // mockData.addMockData(this, { gc: gcEnabled });
+    // console.log("State of WSS after add mock data loaded: ", this.toJSON());
 
-    setInterval(() => {
-      console.log("State of WSS after adding mock data: ");
+    // setInterval(() => {
+    //   console.log("State of WSS after adding mock data: ");
 
-      mockData.yPrettyPrint(this.get("notebook").get("rawCellData"));
-    }, 3000);
+    //   mockData.yPrettyPrint(this.get("notebook").get("rawCellData"));
+    // }, 3000);
 
     // room name embeded in WSS doc? is this accessible from the user side?
     this.name = name;
