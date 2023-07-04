@@ -1,0 +1,23 @@
+{
+  "name": "hocuspocus-provider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/server.js"
+  },
+  "keywords": [],
+  "author": " <Your Name> (https://example.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "@hocuspocus/extension-logger": "^2.2.0",
+    "@hocuspocus/extension-sqlite": "^2.2.0",
+    "@hocuspocus/server": "^2.2.0",
+    "@hocuspocus/transformer": "^2.2.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
