@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mvp2pocus on 2023-07-04T10:30:20-07:00
+# fly.toml app configuration file generated for mvp2pocus on 2023-07-08T19:59:28-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -12,6 +12,7 @@ primary_region = "sea"
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
+
 [build]
   [build.args]
     NODE_VERSION = "17"
