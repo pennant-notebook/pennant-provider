@@ -1,23 +1,20 @@
-// current output
+// ==> :
 // {
 //     "cells": [
 //         {
-//             "id": "id1blahblahblah",
-//             "editorContent": "template code text",
+//             "id": "dde84f76-05aa-4eab-b596-bd0adc2a5a1f",
 //             "type": "code",
-//             "output": {
-//                 "data": "hello world"
-//             }
+//             "text": "emptyasdf\n"
 //         },
 //         {
-//             "id": "id2blahblahblah",
-//             "editorContent": "template code text",
-//             "type": "markdown"
+//             "id": "d455a10a-ec86-41cf-8ae4-f275782dc960",
+//             "type": "markdown",
+//             "text": "empty"
 //         }
-//     ]
+//     ],
+//     "output": {}
 // }
 
-// old output
 // ==> :
 // {
 //     "cells": [
@@ -59,6 +56,9 @@ export const yPrettyPrint = function (ydoc, msg = "") {
 };
 
 const mockJsonData = JSON.stringify({
+  metaData: {
+    executionCount: 0
+  },
   cells: [
     {
       id: "id1blahblahblah",
@@ -67,12 +67,18 @@ const mockJsonData = JSON.stringify({
       editorContent: "template code text",
       output: {
         data: "hello world"
+      },
+      metadata: {
+        exeCount: 0
       }
     },
     {
       id: "id2blahblahblah",
       type: "markdown",
-      editorContent: "template code text"
+      editorContent: "template code text",
+      metadata: {
+        exeCount: 0
+      }
     }
   ],
   output: {
