@@ -14,7 +14,8 @@
     "@hocuspocus/extension-logger": "^2.2.0",
     "@hocuspocus/extension-sqlite": "^2.2.0",
     "@hocuspocus/server": "^2.2.0",
-    "@hocuspocus/transformer": "^2.2.0"
+    "@hocuspocus/transformer": "^2.2.0",
+    "aws-sdk": "^2.1414.0"
   },
   "type": "module",
   "devDependencies": {

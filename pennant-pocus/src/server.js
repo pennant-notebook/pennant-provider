@@ -10,18 +10,23 @@ import { TiptapTransformer } from "@hocuspocus/transformer";
 import { Logger } from "@hocuspocus/extension-logger";
 import { mockJsonToYDoc, yPrettyPrint } from "./utils/notebookTemplateJSON.js";
 
+import { Database } from "@hocuspocus/extension-database";
+import { s3Client, s3Database } from "./s3client.js";
+
 let count = 0;
+
 const debouncedLogChange = debounce(data => {
   console.log("changed! ", count);
   console.log("logging: ", data);
 }, 1000);
 
 const server = Server.configure({
-  port: process.env.PORT || 1234,
+  port: process.env.PORT,
   name: "pennant-hocuspocus-provider",
 
   extensions: [
-    new SQLite({ database: "db.sqlite" }),
+    // new SQLite({ database: "db.sqlite" }),
+    new Database(s3Database),
     new Logger({
       onLoadDocument: true,
       onChange: true,
