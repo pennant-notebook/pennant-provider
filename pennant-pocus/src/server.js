@@ -21,7 +21,7 @@ const debouncedLogChange = debounce(data => {
 }, 1000);
 
 const server = Server.configure({
-  port: process.env.PORT,
+  port: 3000,
   name: "pennant-hocuspocus-provider",
 
   extensions: [
