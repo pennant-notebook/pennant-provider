@@ -5,20 +5,27 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": " <Your Name> (https://example.com/)",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.369.0",
+    "@aws-sdk/lib-storage": "^3.369.0",
+    "@hocuspocus/extension-database": "^2.2.1",
     "@hocuspocus/extension-logger": "^2.2.0",
     "@hocuspocus/extension-sqlite": "^2.2.0",
     "@hocuspocus/server": "^2.2.0",
-    "@hocuspocus/transformer": "^2.2.0"
+    "@hocuspocus/transformer": "^2.2.0",
+    "aws-sdk": "^2.1414.0",
+    "dotenv": "^16.3.1"
   },
   "type": "module",
   "devDependencies": {
     "@flydotio/dockerfile": "^0.2.16",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1"
   }
 }
